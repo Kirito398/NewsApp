@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetAllArticlesUseCase @Inject constructor(
+internal class GetAllArticlesUseCase @Inject constructor(
     private val repository: ArticlesRepository
 ) {
-    operator fun invoke(): Flow<RequestResult<List<Article>>> {
-        return repository.getAll()
+    operator fun invoke(query: String): Flow<RequestResult<List<ArticleUI>>> {
+        return repository.getAll(query = query)
             .map { requestResult ->
                 requestResult.map { articles ->
                     articles.map { it.toUiArticle() }
@@ -21,6 +21,12 @@ class GetAllArticlesUseCase @Inject constructor(
     }
 }
 
-private fun DataArticle.toUiArticle(): Article {
-    TODO()
+private fun DataArticle.toUiArticle(): ArticleUI {
+    return ArticleUI(
+        id = id,
+        title = title,
+        description = description,
+        imageUrl = urlToImage,
+        url = url
+    )
 }

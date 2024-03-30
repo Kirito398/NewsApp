@@ -16,11 +16,11 @@ internal class NewsMainViewModel @Inject constructor(
     getAllArticlesUseCase: Provider<GetAllArticlesUseCase>,
 ) : ViewModel() {
 
-    val state: StateFlow<State> = getAllArticlesUseCase.get().invoke()
+    val state: StateFlow<State> = getAllArticlesUseCase.get().invoke(query = "android")
         .map { it.toState() }
         .stateIn(viewModelScope, SharingStarted.Lazily, State.None)
 
-    private fun RequestResult<List<Article>>.toState(): State {
+    private fun RequestResult<List<ArticleUI>>.toState(): State {
         return when(this) {
             is RequestResult.Error -> State.Error(this.data)
             is RequestResult.InProgress -> State.Loading(this.data)
@@ -29,9 +29,9 @@ internal class NewsMainViewModel @Inject constructor(
     }
 }
 
-sealed class State {
-    object None : State()
-    class Loading(val articles: List<Article>?) : State()
-    class Error(val articles: List<Article>?) : State()
-    class Success(val articles: List<Article>) : State()
+internal sealed class State(val articles: List<ArticleUI>?) {
+    data object None : State(articles = null)
+    class Loading(articles: List<ArticleUI>? = null) : State(articles)
+    class Error(articles: List<ArticleUI>? = null) : State(articles)
+    class Success(articles: List<ArticleUI>) : State(articles)
 }

@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/features/news-main" />
             <option value="$PROJECT_DIR$/news-common" />
             <option value="$PROJECT_DIR$/news-data" />
+            <option value="$PROJECT_DIR$/news-uikit" />
             <option value="$PROJECT_DIR$/newsapi" />
           </set>
         </option>

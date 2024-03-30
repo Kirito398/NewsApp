@@ -34,13 +34,6 @@ internal class RequestResponseMergeStrategy<T> : MergeStrategy<RequestResult<T>>
     }
 
     private fun merge(
-        right: RequestResult.Success<T>,
-        left: RequestResult.InProgress<T>
-    ): RequestResult<T> {
-        return RequestResult.InProgress(right.data)
-    }
-
-    private fun merge(
         right: RequestResult.InProgress<T>,
         left: RequestResult.Success<T>
     ): RequestResult<T> {
@@ -48,9 +41,63 @@ internal class RequestResponseMergeStrategy<T> : MergeStrategy<RequestResult<T>>
     }
 
     private fun merge(
+        right: RequestResult.InProgress<T>,
+        left: RequestResult.Error<T>
+    ): RequestResult<T> {
+        return RequestResult.Error(
+            data = right.data,
+            error = left.error
+        )
+    }
+
+    private fun merge(
+        right: RequestResult.Success<T>,
+        left: RequestResult.InProgress<T>
+    ): RequestResult<T> {
+        return RequestResult.InProgress(right.data)
+    }
+
+    private fun merge(
+        right: RequestResult.Success<T>,
+        left: RequestResult.Success<T>
+    ): RequestResult<T> {
+        return RequestResult.Success(right.data)
+    }
+
+    private fun merge(
         right: RequestResult.Success<T>,
         left: RequestResult.Error<T>
     ): RequestResult<T> {
         return RequestResult.Error(right.data, left.error)
+    }
+
+    private fun merge(
+        right: RequestResult.Error<T>,
+        left: RequestResult.InProgress<T>
+    ): RequestResult<T> {
+        return RequestResult.Error(
+            data = left.data,
+            error = right.error
+        )
+    }
+
+    private fun merge(
+        right: RequestResult.Error<T>,
+        left: RequestResult.Success<T>
+    ): RequestResult<T> {
+        return RequestResult.Error(
+            data = left.data,
+            error = right.error
+        )
+    }
+
+    private fun merge(
+        right: RequestResult.Error<T>,
+        left: RequestResult.Error<T>
+    ): RequestResult<T> {
+        return RequestResult.Error(
+            data = left.data,
+            error = right.error
+        )
     }
 }

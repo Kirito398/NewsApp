@@ -10,9 +10,9 @@ java {
 }
 
 dependencies {
-    implementation(libs.retrofit)
+    api(libs.retrofit) //TODO Check how we can use implementation here
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.serialization.json)
+    api(libs.kotlinx.serialization.json) //TODO Check how we can use implementation here
     implementation(libs.androidx.annotation)
     implementation(libs.retrofit.converter.kotlinx.serialization)
     implementation(libs.retrofit.adapters.result)
