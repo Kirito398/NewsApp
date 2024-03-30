@@ -21,7 +21,7 @@ internal class NewsMainViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.Lazily, State.None)
 
     private fun RequestResult<List<ArticleUI>>.toState(): State {
-        return when(this) {
+        return when (this) {
             is RequestResult.Error -> State.Error(this.data)
             is RequestResult.InProgress -> State.Loading(this.data)
             is RequestResult.Success -> State.Success(this.data)

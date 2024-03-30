@@ -59,6 +59,7 @@ internal fun NewsMainScreen(viewModel: NewsMainViewModel) {
     }
 }
 
+@Suppress("UNUSED_PARAMETER")
 @Composable
 private fun ProgressIndicator(state: State.Loading) {
     Box(
@@ -71,6 +72,7 @@ private fun ProgressIndicator(state: State.Loading) {
     }
 }
 
+@Suppress("UNUSED_PARAMETER")
 @Composable
 private fun ErrorMessage(state: State.Error) {
     Box(
@@ -171,5 +173,4 @@ internal class ArticlesPreviewProvider : PreviewParameterProvider<List<ArticleUI
                 )
             )
         )
-
 }

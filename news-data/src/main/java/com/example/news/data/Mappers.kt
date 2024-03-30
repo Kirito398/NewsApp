@@ -3,9 +3,9 @@ package com.example.news.data
 import com.example.news.data.model.Article
 import com.example.news.data.model.Source
 import com.example.news.database.models.ArticleDBO
-import com.example.news.database.models.Source as SourceDBO
 import com.example.newsapi.models.ArticleDTO
 import com.example.newsapi.models.SourceDTO
+import com.example.news.database.models.Source as SourceDBO
 
 internal fun ArticleDBO.toArticle(): Article {
     return Article(

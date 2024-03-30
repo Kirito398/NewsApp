@@ -25,6 +25,7 @@ interface NewsApi {
     /**
      * API details [here](https://newsapi.org/docs/endpoints/everything)
      */
+    @Suppress("LongParameterList")
     @GET("everything")
     suspend fun everything(
         @Query("q") query: String? = null,
@@ -65,5 +66,3 @@ private fun retrofit(
         .client(modifiedOkHttpClient)
         .build()
 }
-
-

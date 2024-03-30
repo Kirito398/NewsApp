@@ -6,9 +6,14 @@ interface MergeStrategy<E> {
 
 internal class RequestResponseMergeStrategy<T> : MergeStrategy<RequestResult<T>> {
 
+    @Suppress("CyclomaticComplexMethod")
     override fun merge(right: RequestResult<T>, left: RequestResult<T>): RequestResult<T> {
         return when {
-            right is RequestResult.InProgress && left is RequestResult.InProgress -> merge(right, left)
+            right is RequestResult.InProgress && left is RequestResult.InProgress -> merge(
+                right,
+                left
+            )
+
             right is RequestResult.InProgress && left is RequestResult.Success -> merge(right, left)
             right is RequestResult.InProgress && left is RequestResult.Error -> merge(right, left)
 
@@ -33,6 +38,7 @@ internal class RequestResponseMergeStrategy<T> : MergeStrategy<RequestResult<T>>
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         right: RequestResult.InProgress<T>,
         left: RequestResult.Success<T>
@@ -50,6 +56,7 @@ internal class RequestResponseMergeStrategy<T> : MergeStrategy<RequestResult<T>>
         )
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         right: RequestResult.Success<T>,
         left: RequestResult.InProgress<T>
@@ -57,6 +64,7 @@ internal class RequestResponseMergeStrategy<T> : MergeStrategy<RequestResult<T>>
         return RequestResult.InProgress(right.data)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         right: RequestResult.Success<T>,
         left: RequestResult.Success<T>
