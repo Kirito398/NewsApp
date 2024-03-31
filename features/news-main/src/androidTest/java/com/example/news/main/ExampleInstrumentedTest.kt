@@ -1,7 +1,6 @@
 package com.example.news.main
 
 
-
 /**
  * Instrumented test, which will execute on an Android device.
  *

@@ -6,10 +6,10 @@ sealed class RequestResult<E>(open val data: E? = null) {
     class Error<E>(data: E? = null, val error: Throwable? = null) : RequestResult<E>(data)
 }
 
-internal fun <T: Any> RequestResult<T?>.requireData(): T = checkNotNull(data)
+internal fun <T : Any> RequestResult<T?>.requireData(): T = checkNotNull(data)
 
 fun <I, O> RequestResult<I>.map(mapper: (I) -> O): RequestResult<O> {
-    return when(this) {
+    return when (this) {
         is RequestResult.Error -> RequestResult.Error(data?.let(mapper))
         is RequestResult.InProgress -> RequestResult.InProgress(data?.let(mapper))
         is RequestResult.Success -> RequestResult.Success(mapper(data))
