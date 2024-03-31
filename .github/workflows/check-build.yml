@@ -1,0 +1,29 @@
+name: Code quality check
+run-name: Check code quality with linter
+on: [ push ]
+jobs:
+    Detekt:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout sources
+              uses: actions/checkout@v4
+
+            - name: Set Up JDK
+              uses: actions/setup-java@v4
+              with:
+               distribution: 'temurin' # See 'Supported distributions' for available options
+               java-version: '21'
+
+            - name: Setup Gradle
+              uses: gradle/gradle-build-action@v3
+              with:
+                  cache-disabled: true
+
+            - name: Detekt
+              shell: bash
+              run: ./gradlew detekt
+
+#            - name: Publish Detekt reports
+#              uses: jwgmeligmeyling/checkstyle-github-action@master
+#              with:
+#               path: '**/checkstyle-result.xml'
