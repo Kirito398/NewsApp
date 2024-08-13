@@ -13,6 +13,11 @@ plugins {
     alias(libs.plugins.detekt) apply false
 }
 
+ext {
+    //set("keyPath", rootProject.property("keyPath"))
+}
+
+//TODO not recommended
 allprojects.onEach { project ->
     project.afterEvaluate {
         if (project.plugins.hasPlugin(libs.plugins.jetbrainsKotlinAndroid.get().pluginId)

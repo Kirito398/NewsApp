@@ -1,5 +1,7 @@
 package com.example.news.main
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.news.data.RequestResult
@@ -29,9 +31,14 @@ internal class NewsMainViewModel @Inject constructor(
     }
 }
 
-internal sealed class State(val articles: List<ArticleUI>?) {
+@Stable
+internal sealed class State(open val articles: List<ArticleUI>?) {
+    @Immutable
     data object None : State(articles = null)
+    @Stable
     class Loading(articles: List<ArticleUI>? = null) : State(articles)
+    @Stable
     class Error(articles: List<ArticleUI>? = null) : State(articles)
-    class Success(articles: List<ArticleUI>) : State(articles)
+    @Stable
+    class Success(override val articles: List<ArticleUI>) : State(articles)
 }
