@@ -35,7 +35,7 @@ dependencies {
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
     api(libs.androidx.material3)
+    api(libs.androidx.ui.test.manifest)
 
     debugApi(libs.androidx.ui.tooling)
-    debugApi(libs.androidx.ui.test.manifest)
 }
